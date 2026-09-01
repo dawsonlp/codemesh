@@ -12,6 +12,10 @@ docs/
 ├── roadmap.md                             # Architectural Capabilities Roadmap
 ├── literature_review.md                   # Historical Context, Prior Art & Paradigm Survey
 ├── mvp_development_plan.md                # Phased Implementation & Verification Checklist
+├── federation/
+│   ├── README.md                          # Tripartite Semantic Federation Overview
+│   ├── information_data_authority_requirements.md # Information / Data Domain Requirements
+│   └── intent_requirements_authority_requirements.md # Intent & Policy Domain Requirements
 └── design/
     ├── README.md                          # Design Index & Architectural Overview (This file)
     ├── 01_core_semantic_ontology.md       # Pure Domain Model, CSIs, Contracts, Graph Schema
@@ -22,6 +26,7 @@ docs/
 ```
 
 > 🚀 **Quick Start**: See the [Quick Start Guide](../quickstart.md) for step-by-step setup with AI coding agents.  
+> 🌐 **Federation**: See the [Tripartite Federation Overview](../federation/README.md) for data and intent authority specs.  
 > 🗺️ **Long-Term Roadmap**: See the [Capabilities Roadmap](../roadmap.md) for upcoming milestones.  
 > 📜 **Historical Context**: For a thorough survey of Smalltalk, Lisp, LSP/LSIF/SCIP, Kythe, Glean, CodeQL, and Unison, see the [Literature Review](../literature_review.md).
 

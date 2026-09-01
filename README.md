@@ -82,6 +82,12 @@ codemesh/
 │   ├── 01_raw_lsp_exploration/             # Historical initial LSP client spike
 │   └── 02_agent_semantic_skill_benchmark/  # Automated comparative A/B benchmark
 │
+├── docs/
+│   ├── quickstart.md   # Quick Start Guide for AI agents and developers
+│   ├── roadmap.md      # Capabilities Roadmap & maturity matrix
+│   ├── federation/     # Tripartite Semantic Federation (Data & Intent Authority Specs)
+│   └── design/         # Architectural specifications (CSI, LSP ACL, Invariants, etc.)
+│
 ├── tests/              # Full unit & integration test suite
 └── demo.py             # Interactive demonstration runner
 ```
