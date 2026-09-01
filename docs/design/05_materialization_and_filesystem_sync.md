@@ -1,6 +1,6 @@
-# 05. Materialization and FileSystem Synchronization
+# 05. Materialization and FileSystem Synchronization `[Implemented]`
 
-This document specifies the **FileSystem Projection Engine** responsible for compiling the Semantic Graph into physical source files on disk and synchronizing external edits back into the graph.
+This document specifies the **FileSystem Projection Engine** in `codemesh.projection` responsible for compiling the Semantic Graph into physical source files on disk and synchronizing external edits back into the graph.
 
 ---
 
@@ -22,7 +22,7 @@ Physical files on disk are a **projection format** required by standard compiler
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        Physical File System                            │
 │                                                                        │
-│   sample_project/                                                      │
+│   sample_ecommerce/                                                    │
 │   ├── models.py         (Synthesized dataclasses, enums, & imports)    │
 │   ├── interfaces.py     (Synthesized protocols & type annotations)     │
 │   ├── repositories.py   (Synthesized classes & method implementations) │
@@ -39,9 +39,9 @@ A configurable layout mapper projects symbol namespaces to file paths:
 
 | CSI Namespace | Materialized File Path |
 | :--- | :--- |
-| `csi://sample_project/models/*` | `sample_project/models.py` |
-| `csi://sample_project/domain/orders/*` | `sample_project/domain/orders.py` |
-| `csi://sample_project/services/*` | `sample_project/services.py` |
+| `csi://sample_ecommerce/models/*` | `sample_ecommerce/models.py` |
+| `csi://sample_ecommerce/domain/orders/*` | `sample_ecommerce/domain/orders.py` |
+| `csi://sample_ecommerce/services/*` | `sample_ecommerce/services.py` |
 
 ### 2.2 Intra-File Symbol Ordering
 Within each generated file, symbols are emitted in deterministic topological order:

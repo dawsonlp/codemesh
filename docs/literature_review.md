@@ -128,7 +128,7 @@ Today's AI coding tools (Copilot, Cursor, Aider, Claude Engineer) interact with 
 
 The following matrix compares our **Semantic-First Program Representation** with previous paradigms:
 
-| Feature / Dimension | Classic Files + LSP | Kythe / Glean | Unison | Naive AI Coding (RAG) | **Our Semantic Model** |
+| Feature / Dimension | Classic Files + LSP | Kythe / Glean | Unison | Naive AI Coding (RAG) | **CodeMesh** |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Canonical Ground Truth** | Text Files on Disk | Text Files (analyzed into graph) | Hash-addressed AST in DB | Text Files on Disk | **Semantic Knowledge Graph** |
 | **Addressing Scheme** | `file:line:col` | URI / VName | Hash of AST | File paths + text chunks | **Canonical Symbol ID (`csi://`)** |

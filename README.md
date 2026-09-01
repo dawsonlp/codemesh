@@ -19,7 +19,8 @@ CodeMesh transitions software development from file-based text manipulation (fra
 
 ## Quick Start (Python SDK)
 
-> 📖 **Looking for a full setup walkthrough? Check out the [Quick Start Guide](docs/quickstart.md) to integrate CodeMesh with Claude Code, Cursor, Antigravity, or custom agents.**
+> 📖 **Quick Setup**: Check out the [Quick Start Guide](docs/quickstart.md) to integrate CodeMesh with Claude Code, Cursor, Antigravity, or custom agents.  
+> 📚 **Documentation Portal**: Explore the complete [Documentation Portal & Reading Paths](docs/README.md) for architectural specifications and federation standards.
 
 ```python
 import asyncio

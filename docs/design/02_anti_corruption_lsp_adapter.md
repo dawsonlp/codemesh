@@ -1,4 +1,4 @@
-# 02. Anti-Corruption LSP Adapter Specification
+# 02. Anti-Corruption LSP Adapter Specification `[Implemented]`
 
 This document details the **Anti-Corruption Layer (ACL)** that wraps the Language Server Protocol (LSP) driver and translates editor-centric payloads into our pure Semantic Domain Model.
 

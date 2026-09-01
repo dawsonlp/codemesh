@@ -1,4 +1,4 @@
-# 03. Context Slicing and Agent Projections Specification
+# 03. Context Slicing and Agent Projections Specification `[Implemented]`
 
 This document details how the Semantic Graph is projected into **token-optimized, highly focused context slices** designed specifically for AI agents and LLM prompts.
 
@@ -40,25 +40,23 @@ $$\text{ContextSlice}(S) = \text{Body}(S) \cup \bigcup_{d \in \text{Callees}(S)}
 
 ## 2. Slicing Archetypes
 
-### 2.1 Archetype A: Implementation Slicing
+### 2.1 Archetype A: Implementation Slicing `[Implemented]`
 * **Use Case**: The agent is tasked with writing, editing, or debugging a specific function implementation.
-* **Contents**:
-  1. Full implementation body of the target function.
-  2. Contract signatures & docstrings of all direct dependencies (callees, instantiated classes, parameter types, return types).
-  3. Zero implementation bodies of external functions.
+* **Method**: `workspace.get_symbol_context(csi)`
+* **Contents**: Full body of target + contract signatures & docstrings of direct dependencies.
 
-### 2.2 Archetype B: Architectural / Interface Slicing
+### 2.2 Archetype B: Multi-Symbol Task Slicing `[Implemented]`
+* **Use Case**: The agent is implementing a coordinated cross-cutting feature across multiple modules (e.g. models, interfaces, and service methods).
+* **Method**: `workspace.get_multi_symbol_context([csi1, csi2, ...])`
+* **Contents**: Full bodies of all specified target symbols + deduplicated `.pyi` contracts for all shared dependencies.
+
+### 2.3 Archetype C: Architectural / Interface Slicing `[Implemented]`
 * **Use Case**: The agent is planning a system refactor or designing a new feature across multiple modules.
-* **Contents**:
-  1. Namespaces and class hierarchies.
-  2. Pure contracts (method signatures, type definitions, docstrings).
-  3. Zero implementation bodies across the entire codebase.
+* **Contents**: Namespaces, classes, and pure contracts with zero implementation bodies.
 
-### 2.3 Archetype C: Blast-Radius / Impact Slicing
+### 2.4 Archetype D: Blast-Radius / Impact Slicing `[Implemented]`
 * **Use Case**: The agent is modifying an existing interface or method signature and needs to update all call sites.
-* **Contents**:
-  1. Proposed modified contract of the target symbol.
-  2. The exact implementation bodies of all direct callers that must be adjusted.
+* **Contents**: Proposed modified contract of the target symbol + implementation bodies of all direct callers that must be adjusted.
 
 ---
 

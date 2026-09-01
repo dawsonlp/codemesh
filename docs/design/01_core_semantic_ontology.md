@@ -1,12 +1,12 @@
-# 01. Core Semantic Ontology Specification
+# 01. Core Semantic Ontology Specification `[Implemented]`
 
-This document specifies the **Pure Semantic Domain Model**. This model contains **zero references to file paths, byte offsets, text line/column numbers, or LSP protocol structures**.
+This document specifies the **Pure Semantic Domain Model** in `codemesh.core`. This model contains **zero references to file paths, byte offsets, text line/column numbers, or LSP protocol structures**.
 
 ---
 
 ## 1. Canonical Symbol Identifiers (CSI)
 
-A **Canonical Symbol Identifier (CSI)** uniquely identifies any entity across an entire software ecosystem.
+A **Canonical Symbol Identifier (CSI)** uniquely identifies any computational entity across an entire software ecosystem.
 
 ### 1.1 URI Format
 ```
@@ -16,14 +16,14 @@ csi://<package_name>/<namespace_path>/<symbol_hierarchy>
 ### 1.2 Examples
 | Symbol | Canonical Symbol Identifier (CSI) |
 | :--- | :--- |
-| Package Namespace | `csi://sample_project/services` |
-| Class Definition | `csi://sample_project/services/OrderService` |
-| Method inside Class | `csi://sample_project/services/OrderService.create_order` |
+| Package Namespace | `csi://sample_ecommerce/services` |
+| Class Definition | `csi://sample_ecommerce/services/OrderService` |
+| Method inside Class | `csi://sample_ecommerce/services/OrderService.create_order` |
 | Overloaded Method (Java/C#/C++) | `csi://com.example.store/services/OrderService.findOrders(String,int)` |
 | Overloaded Method Variant | `csi://com.example.store/services/OrderService.findOrders(UUID)` |
-| Method Parameter | `csi://sample_project/services/OrderService.create_order#user_id` |
-| Dataclass Field | `csi://sample_project/models/Money.amount` |
-| Protocol / Interface | `csi://sample_project/interfaces/PaymentGateway` |
+| Method Parameter | `csi://sample_ecommerce/services/OrderService.create_order#user_id` |
+| Dataclass Field | `csi://sample_ecommerce/models/Money.amount` |
+| Protocol / Interface | `csi://sample_ecommerce/interfaces/PaymentGateway` |
 | Foreign / Stdlib Symbol | `csi://python_stdlib/datetime/datetime.utcnow` |
 | Third-party Dependency | `csi://pydantic/main/BaseModel` |
 
@@ -243,4 +243,13 @@ class SemanticGraph:
     def get_subtypes(self, base_class_csi: CanonicalSymbolId) -> Set[CanonicalSymbolId]: ...
     def get_dependency_closure(self, csi: CanonicalSymbolId, depth: int = 1) -> Set[CanonicalSymbolId]: ...
 ```
+
+---
+
+## 5. Federated External Identifiers & Cross-Domain Links `[Designed]`
+
+While `CanonicalSymbolId` (`csi://`) addresses computational entities, CodeMesh connects to companion semantic authorities via federated URIs:
+* **Logical & Physical Data Entities**: `data://logical/<domain>/<Entity>` and `data://physical/...` (See [Data Authority Specification](../federation/information_data_authority_requirements.md)).
+* **Requirements & Policies**: `req://<domain>/<slug>` and `decision://...` (See [Intent Authority Specification](../federation/intent_requirements_authority_requirements.md)).
+* **Cross-Ontology Links**: Typed edges (`CREATES`, `READS`, `WRITES`, `VALIDATES`, `SATISFIES`, `GOVERNED_BY`) are managed via in-code decorators and `.codemesh/links.yaml` (See [Cross-Ontology Link Architecture](../federation/cross_ontology_link_architecture.md)).
 

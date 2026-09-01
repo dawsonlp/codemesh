@@ -1,12 +1,12 @@
-# 04. Mutation, Invariants and Verification Specification
+# 04. Mutation, Invariants and Verification Specification `[Implemented]`
 
-This document specifies how changes are applied to the semantic program representation, how system invariants and blast radiuses are validated, and how incremental verification is executed.
+This document specifies how changes are applied to the semantic program representation in `codemesh.mutation`, how system invariants and blast radiuses are validated, and how incremental verification is executed.
 
 ---
 
-## 1. Structured Semantic Mutations
+## 1. Structured Semantic Mutations `[Implemented]`
 
-In file-centric development, changes are applied as arbitrary character or line edits (`diff` / `patch`). In this architecture, all modifications are structured **Semantic Mutation Commands**.
+In file-centric development, changes are applied as arbitrary character or line edits (`diff` / `patch`). In CodeMesh, all modifications are structured **Semantic Mutation Commands**.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -15,8 +15,10 @@ In file-centric development, changes are applied as arbitrary character or line 
 │   ┌────────────────────────────────────────────────────────────────┐   │
 │   │                 Structured Mutation Command                    │   │
 │   │  • ReplaceImplementation(CSI, new_body)                        │   │
-│   │  • UpdateContract(CSI, new_signature)                          │   │
+│   │  • AddSymbol(parent_csi, contract, implementation)             │   │
 │   │  • RenameSymbol(CSI, new_name)                                 │   │
+│   │  • MoveSymbol(CSI, new_package)                                │   │
+│   │  • DeleteSymbol(CSI)                                           │   │
 │   └───────────────────────────────┬────────────────────────────────┘   │
 │                                   │                                    │
 │                                   ▼                                    │

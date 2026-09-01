@@ -176,3 +176,4 @@ class FederatedRelationship:
   * Sidecar registry (`.codemesh/links.yaml`)
   * Cross-model API queries
 * **Runtime Operator & Traverser**: **CodeMesh `SemanticWorkspace`**, providing agents with a unified, instant, queryable knowledge graph.
+

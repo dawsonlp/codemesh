@@ -1,11 +1,11 @@
 ---
-name: semantic-program-engineering
-description: Canonical Semantic-First Program Engineering SDK for AI Coding Agents
+name: codemesh
+description: Canonical Semantic-First Graph Engine & Zero-Diff Development SDK for AI Coding Agents
 ---
 
-# Semantic Program Engineering Skill
+# CodeMesh Agent Skill
 
-Use this skill when developing, exploring, modifying, or refactoring Python codebases using the `semantic_engine` framework.
+Use this skill when developing, exploring, modifying, or refactoring Python codebases using the **CodeMesh** framework.
 
 ---
 
@@ -16,7 +16,7 @@ Traditional AI coding assistants manipulate code by reading entire physical file
 * **Patch failures**: Whitespace, indentation, and offset errors when applying text edits.
 * **Import drift**: Missing or broken module imports and circular dependency bugs.
 
-The **Semantic Engine SDK** eliminates physical file management by maintaining an in-memory **Semantic Graph** where symbols are addressed by **Canonical Symbol ID (CSI)**:
+The **CodeMesh SDK** eliminates physical file management by maintaining an in-memory **Semantic Graph** where symbols are addressed by **Canonical Symbol ID (CSI)**:
 * `csi://<package>/<namespace>/<symbol>[.<member>]`
 
 ---
@@ -25,7 +25,7 @@ The **Semantic Engine SDK** eliminates physical file management by maintaining a
 
 ```python
 import asyncio
-from semantic_engine.workspace import SemanticWorkspace
+from codemesh import SemanticWorkspace
 
 async def work_on_codebase():
     # 1. Ingest codebase into in-memory SemanticGraph
