@@ -97,11 +97,29 @@ Projecting an in-memory semantic graph to physical disk files and immediately re
 
 ---
 
-### 2.4 Idempotent Normalization Operator on Code
+### 2.4 Asymmetry: Why the Transform is NOT a Section on Code ($P \circ I \neq \text{id}_{\mathbf{Code}}$)
 
-While $I \circ P = \text{id}_{\mathbf{Sem}}$, the reverse composition $\Pi = P \circ I: \mathbf{Code} \to \mathbf{Code}$ is not the identity on $\mathbf{Code}$ because raw text contains arbitrary whitespace, duplicate imports, and arbitrary line ordering.
+It is crucial to state the fundamental asymmetry of this system:
 
-However, $\Pi$ is an **idempotent projection / normalization operator**:
+1. **$I \circ P = \text{id}_{\mathbf{Sem}}$ is an exact equality** (Semantic Retraction):
+   The semantic model is preserved with 100% mathematical fidelity through projection and re-ingestion.
+
+2. **$P \circ I \neq \text{id}_{\mathbf{Code}}$ in the general case** (Non-Invertibility on Raw Code):
+   $I$ is **not a section** of $P$ over arbitrary physical source code. When an existing, human-authored codebase $\mathcal{C}_{\text{raw}} \in \mathbf{Code}$ is ingested into the semantic graph and subsequently re-materialized to disk:
+   $$P(I(\mathcal{C}_{\text{raw}})) \neq \mathcal{C}_{\text{raw}}$$
+
+**Real-World Consequence**: 
+Ingesting an existing source project and regenerating it from the imported semantic model will produce **extensive changes to file contents and physical structure**:
+* **Complete Import Rewrite**: Handwritten, scattered, or redundant `import` statements are discarded and deterministically re-synthesized from graph edges ($E$).
+* **Topological Reordering**: Functions, classes, protocols, and module docstrings are re-ordered into canonical topological declarations.
+* **Layout Normalization**: Module boundaries, file groupings, and export lists (`__all__`) are rewritten according to the canonical CSI namespace mapper.
+* **Formatting Canonicalization**: Non-semantic whitespace, manual indentation choices, and arbitrary blank lines are normalized to standard AST formatting.
+
+---
+
+### 2.5 Idempotent Normalization on the Canonical Image
+
+While $P \circ I \neq \text{id}_{\mathbf{Code}}$ on arbitrary codebases, the composite operator $\Pi = P \circ I: \mathbf{Code} \to \mathbf{Code}$ is an **idempotent projection / normalization operator**:
 
 $$\Pi^2 = (P \circ I) \circ (P \circ I) = P \circ (I \circ P) \circ I = P \circ \text{id}_{\mathbf{Sem}} \circ I = P \circ I = \Pi$$
 
@@ -117,9 +135,10 @@ $$\Pi^2 = (P \circ I) \circ (P \circ I) = P \circ (I \circ P) \circ I = P \circ 
                                     P ∘ I
 ```
 
-**Theorem**: Applying CodeMesh projection after ingestion canonicalizes any raw source code into a stable fixed point. Once normalized, subsequent materializations produce **zero diffs**:
-
-$$\Pi(\Pi(\mathcal{C})) = \Pi(\mathcal{C})$$
+**Theorem**: 
+* **The First Pass is a Canonicalization Phase Change**: Ingesting raw code and re-projecting it maps $\mathcal{C}_{\text{raw}}$ into the canonical subspace $P(\mathbf{Sem}) \subset \mathbf{Code}$, producing extensive initial diffs.
+* **Subsequent Passes are Strictly Idempotent**: Once a codebase resides within the canonical image $P(\mathbf{Sem})$, subsequent re-projections produce **zero diffs**:
+  $$\Pi(\Pi(\mathcal{C})) = \Pi(\mathcal{C})$$
 
 ---
 
@@ -133,7 +152,9 @@ We formally establish the following architectural principles in CodeMesh:
    AI agents and developer tooling must mutate code symbols directly in $\mathbf{Sem}$ using Canonical Symbol IDs (`csi://...`) and AST replacements (`workspace.edit_symbol()`). Agents do not emit diff hunks, regex patches, or line-number edits.
 3. **Automated Import Synthesis as a Natural Transformation**:
    Import headers in physical files are not primitive state. They are functorially generated during $P$ from the outgoing relational edges of the symbols in each module file.
-4. **Enforcement of the Retraction Invariant**:
+4. **Acceptance of Initial Ingestion Restructuring**:
+   Adopting CodeMesh on an existing codebase involves an initial canonicalization pass where physical file layouts and imports are normalized to the semantic model.
+5. **Enforcement of the Retraction Invariant**:
    All core pipeline components (`lsp_adapter`, `slicing`, `mutation`, `projection`) must preserve $I(P(\mathcal{S})) = \mathcal{S}$ as a continuous property-based test invariant across all supported language runtimes.
 
 ---
@@ -142,10 +163,12 @@ We formally establish the following architectural principles in CodeMesh:
 
 ### Positive
 * **Zero-Diff & Zero-Import-Drift**: LLMs never edit import headers or calculate line numbers; $P$ guarantees deterministic, syntactically clean import blocks.
-* **Lossless Semantic Round-Tripping**: Guaranteed high-fidelity synchronization between disk and in-memory representation.
-* **Idempotent Builds & CI/CD**: Clean repository checkouts with no unexpected formatting or import churn.
+* **Lossless Semantic Round-Tripping**: Guaranteed high-fidelity synchronization between disk and in-memory representation ($I \circ P = \text{id}_{\mathbf{Sem}}$).
+* **Idempotent Builds & CI/CD**: Clean repository checkouts with no unexpected formatting or import churn once normalized.
 * **Mathematical Precision**: Provides a formal framework for formal verification, bidirectional transformations, and cross-ontology federation with GroundTruth and Northstar.
 
 ### Negative / Trade-offs
+* **Initial Adoption Churn**: Ingesting an existing project and regenerating it produces large initial git diffs due to import re-synthesis, topological symbol reordering, and layout normalization.
 * **Formatting Preservation Limits**: Custom, non-standard code formatting in raw source code is normalized to the canonical AST representation during projection (mitigated by standard code style formatters like Black / Ruff).
 * **Comment Association**: Non-docstring free-floating comments must be explicitly bound to nearby symbol AST nodes to ensure survival through the retraction $I \circ P$.
+
