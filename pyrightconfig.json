@@ -1,0 +1,14 @@
+{
+  "include": [
+    "src",
+    "fixtures",
+    "tests",
+    "experiments"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    ".venv"
+  ],
+  "pythonVersion": "3.10",
+  "typeCheckingMode": "standard"
+}

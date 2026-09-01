@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codemesh"
+version = "0.1.0"
+description = "CodeMesh: Semantic-First Graph Engine & Zero-Diff Runtime for AI Coding Agents"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+]
+dependencies = [
+    "pyright>=1.1.390",
+    "rich>=13.7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/dawsonlp/codemesh"
+Repository = "https://github.com/dawsonlp/codemesh"
+Documentation = "https://github.com/dawsonlp/codemesh/blob/main/docs/quickstart.md"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "experiments/01_raw_lsp_exploration"]
+asyncio_mode = "auto"
+testpaths = ["tests", "experiments"]
