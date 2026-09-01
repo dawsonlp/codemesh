@@ -89,3 +89,7 @@ To build the complete federated ecosystem, detailed requirements for the two com
    * First-class `Requirement`, `Constraint`, `Policy`, `Decision` (ADR) entities.
    * Declarative intent + machine-executable constraint validators.
    * Cross-boundary impact analysis and invariant gating.
+3. 📄 **[Cross-Ontology Link Architecture & Ownership](cross_ontology_link_architecture.md)**:
+   * Specification of the Three-Tier Link Storage model (In-Code annotations, `.codemesh/links.yaml` repository sidecar, and external catalog APIs).
+   * Canonical cross-edge schema and agent interaction lifecycle.
+

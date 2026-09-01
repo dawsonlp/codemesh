@@ -150,3 +150,4 @@ Evaluates whether a proposed entity modification introduces breaking changes to 
 │ schema to disk  │       │ Invariants & Rules   │
 └─────────────────┘       └──────────────────────┘
 ```
+
