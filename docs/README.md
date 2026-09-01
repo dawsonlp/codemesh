@@ -14,6 +14,9 @@ docs/
 ├── literature_review.md                   # Prior Art, Academic Survey & Comparative Matrix
 ├── mvp_development_plan.md                # Phased MVP Implementation & Verification History
 │
+├── adr/                                   # Architectural Decision Records
+│   └── 0001-projection-as-category-theoretic-retraction.md # Retraction & Idempotence Axiom
+│
 ├── federation/                            # Tripartite Semantic Federation
 │   ├── README.md                          # Tripartite Federation Architecture Overview
 │   ├── cross_ontology_link_architecture.md# Cross-Ontology Link Storage & Ownership Spec
@@ -87,3 +90,4 @@ Choose your role below to follow the optimal reading path:
 | **[`federation/cross_ontology_link_architecture.md`](federation/cross_ontology_link_architecture.md)** | Cross-edge storage tiers (`.codemesh/links.yaml`), ownership | `[Designed]` |
 | **[`roadmap.md`](roadmap.md)** | Long-term capability pillars, milestone Gantt chart | `[Designed]` / `[Planned]` |
 | **[`literature_review.md`](literature_review.md)** | History of non-file environments, LSP, and knowledge graphs | `Reference` |
+

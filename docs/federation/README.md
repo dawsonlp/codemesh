@@ -40,8 +40,8 @@ Autonomous AI software engineering cannot succeed by looking at code in isolatio
 | Semantic Domain | Primary Authority | Focus & Responsibility | Canonical URI Scheme |
 | :--- | :--- | :--- | :--- |
 | **Computation** | **CodeMesh** | How computation is structured, executed, tested, and materialized into physical source code. | `csi://<package>/<namespace>/<Symbol>[.<member>]` |
-| **Information** | **Data Authority** | The structure, business meaning, relationships, integrity rules, and physical schemas of persistent and transient data. | `data://conceptual/...`<br>`data://logical/...`<br>`data://physical/...` |
-| **Intent & Governance** | **Intent Authority** | Why the software exists, business goals, regulatory constraints, architectural decisions, and executable guardrails. | `req://...`<br>`constraint://...`<br>`policy://...`<br>`decision://...` |
+| **Information** | **GroundTruth** | The structure, business meaning, relationships, integrity rules, and physical schemas of persistent and transient data. | `data://conceptual/...`<br>`data://logical/...`<br>`data://physical/...` |
+| **Intent & Governance** | **Northstar** | Why the software exists, business goals, regulatory constraints, architectural decisions, and executable guardrails. | `req://...`<br>`decision://...`<br>`constraint://...`<br>`policy://...`<br>`quality://...` |
 
 ---
 
