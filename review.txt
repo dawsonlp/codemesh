@@ -1,0 +1,68 @@
+1. Add requirements and constraints as first-class semantic entities.
+   Introduce nodes such as Requirement, Constraint, Decision, Policy, and perhaps QualityAttribute, with relationships like SATISFIES, CONSTRAINS, GOVERNS, IMPLEMENTS, and VERIFIES. This gives CodeMesh a model of why code exists and what changes are permissible.
+2. Define a clean boundary between CodeMesh and the data dictionary.
+   Treat the data dictionary as the authority for information semantics and CodeMesh as the authority for computation semantics. Do not duplicate Customer, Order, logical attributes, physical tables, etc. inside CodeMesh if they already have canonical identities elsewhere.
+3. Create explicit cross-model links between code and logical data.
+   Make the logical model the main meeting point. Add relations such as READS, WRITES, CREATES, VALIDATES, REPRESENTS, SERIALIZES, and DERIVES_FROM from CodeMesh symbols to canonical logical-data entities and attributes.
+4. Support canonical external semantic identifiers.
+   CodeMesh should be able to reference entities it does not own, e.g.:
+   csi://orders/OrderService.create_order
+   data://logical/sales/Order
+   req://payments/idempotent-capture
+   This is what allows one connected graph without one giant ownership model.
+5. Preserve the conceptual → logical → physical hierarchy inside the data dictionary.
+   Keep DAMA’s abstraction structure intact. Do not turn CodeMesh into another layer in that chain. Code is orthogonal to it:
+   Conceptual -> Logical -> Physical
+                     ^
+                     |
+                  CodeMesh
+6. Connect code to physical data where the implementation genuinely knows it.
+   Repository methods, SQL, ORM mappings, Kafka serializers, etc. can link directly to physical objects, while higher-level business logic should generally link to logical entities. That lets you distinguish:
+   OrderService.create_order -> CREATES logical://Order
+   PostgresOrderRepo.save   -> WRITES physical://postgres/orders
+7. Add provenance and authority to every non-code semantic fact.
+   A relationship should record whether it was declared by a human, imported from the data dictionary, derived from source, inferred by AI, imported from an ADR, regulation, OpenAPI document, etc. I’d make DECLARED, DERIVED, and INFERRED materially different confidence classes.
+8. Turn context slicing into navigable semantic context.
+   Keep the current small initial slice, but allow the agent to expand selectively into requirements, constraints, callers, data entities, tests, telemetry, usage patterns, and implementations. The graph should support exploration rather than trying to predict the perfect context package up front.
+9. Add semantic impact analysis across model boundaries.
+   A change to Customer.email_address should be able to traverse:
+   conceptual concept
+   -> logical attribute
+   -> physical realizations
+   -> code readers/writers
+   -> APIs/events
+   -> tests
+   -> requirements/constraints
+   This is one of the highest-value capabilities the combined model can provide.
+10. Introduce semantic change sets / transactions.
+    Let an agent propose a coordinated system change, not merely edit one symbol:
+    begin_change("support multiple billing addresses")
+    
+    modify logical model
+    modify code
+    modify physical mapping
+    add tests
+    verify constraints
+    Validation should happen against the whole change before materialization.
+11. Make constraints executable where possible.
+    Some constraints can become validators: maximum retry count, forbidden dependencies, allowed state transitions, required authorization, cardinality, latency bounds, data-classification rules, etc. A change can therefore be syntactically valid but semantically rejected.
+12. Add first-class agent tools instead of making the agent program the SDK.
+    Expose a small surface such as:
+    describe
+    search
+    context
+    expand
+    impact
+    propose_change
+    validate
+    apply
+    verify
+    materialize
+    Keep the richer Python SDK underneath.
+13. Add system/runtime semantics after the foundations above are stable.
+    Then extend the graph toward APIs, events, queues, authorization, transactions, deployments, telemetry, regulations, cost, ownership, and operational dependencies. These fit naturally once requirements, data semantics, and code semantics already have clear authority boundaries.
+14. Clearly label maturity in the documentation.
+    Mark features Implemented, Experimental, Designed, or Planned, especially where the design documents currently describe more capability than the implementation exposes.
+15. Benchmark semantic correctness, not mainly token reduction.
+    Measure whether CodeMesh helps an agent make correct cross-cutting changes, identify affected components, preserve constraints, avoid regressions, and require less human intervention. Token savings then become a useful secondary result rather than the core claim.
+The first five are the architectural decisions I would make before substantially extending the implementation. In particular, I think #2–#5 prevent a future mess: one connected semantic graph is desirable, but one enormous ontology in which CodeMesh owns code, business concepts, data models, requirements, and database structures would become very difficult to reason about. The stronger architecture is multiple semantic authorities joined by stable identities and typed relationships.
