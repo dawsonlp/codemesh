@@ -23,7 +23,12 @@ classifiers = [
 dependencies = [
     "pyright>=1.1.390",
     "rich>=13.7.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.6.0",
+    "psycopg[binary]>=3.1.0",
 ]
+
 
 [dependency-groups]
 dev = [
