@@ -14,15 +14,14 @@ docs/
 ├── literature_review.md                   # Prior Art, Academic Survey & Comparative Matrix
 ├── mvp_development_plan.md                # Phased MVP Implementation & Verification History
 │
-├── adr/                                   # Architectural Decision Records
-│   └── 0001-projection-as-category-theoretic-retraction.md # Retraction & Idempotence Axiom
-│
 ├── federation/                            # Tripartite Semantic Federation
 │   ├── README.md                          # Tripartite Federation Architecture Overview
 │   ├── cross_ontology_link_architecture.md# Cross-Ontology Link Storage & Ownership Spec
 │   ├── information_data_authority_requirements.md # Information / Data Domain Requirements
-│   └── intent_requirements_authority_requirements.md # Intent & Policy Domain Requirements
+│   ├── intent_requirements_authority_requirements.md # Intent & Policy Domain Requirements
+│   └── (Governing Federation ADR: /adrs/0007-projection-as-category-theoretic-retraction.md)
 │
+
 └── design/                                # Core Engine Architectural Specifications
     ├── README.md                          # Design Index & Component Overview
     ├── 01_core_semantic_ontology.md       # Pure Domain Model, CSIs, Contracts, Graph Schema
