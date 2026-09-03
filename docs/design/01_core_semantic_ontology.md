@@ -4,28 +4,27 @@ This document specifies the **Pure Semantic Domain Model** in `codemesh.core`. T
 
 ---
 
-## 1. Canonical Symbol Identifiers (CSI)
+## 1. Option B Canonical Symbol Identifiers (CSI)
 
-A **Canonical Symbol Identifier (CSI)** uniquely identifies any computational entity across an entire software ecosystem.
+A **Canonical Symbol Identifier (CSI)** uniquely identifies any computational entity across an entire software ecosystem under Option B coordinates (ADR 0004).
 
-### 1.1 URI Format
+### 1.1 Option B URI Format
 ```
-csi://<package_name>/<namespace_path>/<symbol_hierarchy>
+csi://[tenant:][package]/<namespace_path>/<symbol_hierarchy>[@version][#fragment]
 ```
 
 ### 1.2 Examples
 | Symbol | Canonical Symbol Identifier (CSI) |
 | :--- | :--- |
-| Package Namespace | `csi://sample_ecommerce/services` |
-| Class Definition | `csi://sample_ecommerce/services/OrderService` |
-| Method inside Class | `csi://sample_ecommerce/services/OrderService.create_order` |
-| Overloaded Method (Java/C#/C++) | `csi://com.example.store/services/OrderService.findOrders(String,int)` |
-| Overloaded Method Variant | `csi://com.example.store/services/OrderService.findOrders(UUID)` |
-| Method Parameter | `csi://sample_ecommerce/services/OrderService.create_order#user_id` |
-| Dataclass Field | `csi://sample_ecommerce/models/Money.amount` |
-| Protocol / Interface | `csi://sample_ecommerce/interfaces/PaymentGateway` |
-| Foreign / Stdlib Symbol | `csi://python_stdlib/datetime/datetime.utcnow` |
-| Third-party Dependency | `csi://pydantic/main/BaseModel` |
+| Package Namespace | `csi://tripartite:ecommerce/services@v1` |
+| Class Definition | `csi://tripartite:ecommerce/services/OrderService@v1` |
+| Method inside Class | `csi://tripartite:ecommerce/services/OrderService.create_order@v1` |
+| Overloaded Method (Java/C#/C++) | `csi://tripartite:ecommerce/services/OrderService.findOrders(String,int)@v1` |
+| Method Parameter | `csi://tripartite:ecommerce/services/OrderService.create_order@v1#user_id` |
+| Dataclass Field | `csi://tripartite:ecommerce/models/Money.amount@v1` |
+| Protocol / Interface | `csi://tripartite:ecommerce/interfaces/PaymentGateway@v1` |
+| Third-party Dependency | `csi://global:pydantic/main/BaseModel@latest` |
+
 
 ### 1.3 CSI Data Schema
 ```python

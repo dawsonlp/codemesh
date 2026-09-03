@@ -80,3 +80,32 @@ async def test_complete_semantic_engine_lifecycle():
         finally:
             shutil.rmtree(temp_dir)
 
+
+def test_codemesh_service_mutation_and_uri_resolve():
+    from fastapi.testclient import TestClient
+    from codemesh.service.app import create_app
+
+    app = create_app()
+    client = TestClient(app)
+
+    # 1. Resolve Option B URI
+    res = client.post("/api/v1/uris/resolve", json={"uri": "csi://tripartite:ecommerce/services/OrderService.create_order@v1"})
+    assert res.status_code == 200
+    data = res.json()
+    assert data["is_valid"] is True
+    assert data["coordinates"]["solution"] == "ecommerce"
+    assert data["coordinates"]["version"] == "v1"
+
+    # 2. Invariant-Gated Mutation
+    mut_payload = {
+        "target_csi": "csi://ecommerce/services/PaymentService.capture_funds",
+        "new_implementation": "@idempotent\ndef capture_funds(): return {'status': 'CAPTURED'}",
+        "validate_invariants": True,
+    }
+    mut_res = client.post("/api/v1/mutate", json=mut_payload)
+    assert mut_res.status_code == 200
+    mut_data = mut_res.json()
+    assert mut_data["is_valid"] is True
+    assert mut_data["status"] == "VALIDATED"
+
+
